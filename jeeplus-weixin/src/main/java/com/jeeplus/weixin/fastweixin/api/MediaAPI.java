@@ -42,12 +42,16 @@ public class MediaAPI extends BaseAPI {
      * 上传资源，会在微信服务器上保存3天，之后会被删除
      *
      * @param type 资源类型
-     * @param file 需要上传的文件
+     * @param file 需要上传的文件,多媒体文件有格式和大小限制，如下：
+                    图片（image）: 2M，支持bmp/png/jpeg/jpg/gif格式
+                    语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式
+                    视频（video）：10MB，支持MP4格式
+                    缩略图（thumb）：64KB，支持JPG格式
      * @return 响应对象
      */
     public UploadMediaResponse uploadMedia(MediaType type, File file) {
         UploadMediaResponse response;
-        String url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=#&type=" + type.toString();
+        String url = "https://api.weixin.qq.com/cgi-bin/media/upload?access_token=#&type=" + type.toString();
         BaseResponse r = executePost(url, null, file);
         response = JSONUtils.toBean(r.getErrmsg(), UploadMediaResponse.class);
         return response;
@@ -88,7 +92,7 @@ public class MediaAPI extends BaseAPI {
      */
     public DownloadMediaResponse downloadMedia(String mediaId) {
         DownloadMediaResponse response = new DownloadMediaResponse();
-        String url = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=" + this.config.getAccessToken() + "&media_id=" + mediaId;
+        String url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=" + this.config.getAccessToken() + "&media_id=" + mediaId;
         RequestConfig config = RequestConfig.custom().setConnectionRequestTimeout(NetWorkCenter.CONNECT_TIMEOUT).setConnectTimeout(NetWorkCenter.CONNECT_TIMEOUT).setSocketTimeout(NetWorkCenter.CONNECT_TIMEOUT).build();
         CloseableHttpClient client = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
         HttpGet get = new HttpGet(url);

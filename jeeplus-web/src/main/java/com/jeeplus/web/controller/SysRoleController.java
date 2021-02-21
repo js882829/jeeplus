@@ -1,10 +1,10 @@
 package com.jeeplus.web.controller;
 
-import com.jeeplus.web.entities.SysRoleEntity;
-import com.jeeplus.web.services.SysRoleMenuService;
-import com.jeeplus.web.services.SysRoleService;
-import com.jeeplus.web.utils.PageUtils;
-import com.jeeplus.web.utils.R;
+import com.jeeplus.web.entities.system.SysRoleEntity;
+import com.jeeplus.web.service.system.SysRoleMenuService;
+import com.jeeplus.web.service.system.SysRoleService;
+import com.jeeplus.web.util.PageUtils;
+import com.jeeplus.web.common.R;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +39,9 @@ public class SysRoleController extends AbstractController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:role:list")
-    public R list(Integer page, Integer limit){
+    public R list(String roleName,Integer page, Integer limit){
         Map<String, Object> map = new HashMap<>();
+        map.put("roleName", roleName);
         map.put("offset", (page - 1) * limit);
         map.put("limit", limit);
 
@@ -66,7 +67,7 @@ public class SysRoleController extends AbstractController {
         //查询列表数据
 
 
-        List<SysRoleEntity> list = sysRoleService.queryList(new HashMap<String, Object>());
+        List<SysRoleEntity> list = sysRoleService.queryList(new HashMap<>());
 
         return R.ok().put("list", list);
     }

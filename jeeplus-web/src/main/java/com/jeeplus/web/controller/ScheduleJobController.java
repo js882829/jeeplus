@@ -1,10 +1,10 @@
 package com.jeeplus.web.controller;
 
-import com.jeeplus.web.entities.ScheduleJobEntity;
-import com.jeeplus.web.services.ScheduleJobService;
-import com.jeeplus.web.utils.PageUtils;
-import com.jeeplus.web.utils.R;
-import com.jeeplus.web.utils.RRException;
+import com.jeeplus.web.entities.system.ScheduleJobEntity;
+import com.jeeplus.web.service.system.ScheduleJobService;
+import com.jeeplus.web.util.PageUtils;
+import com.jeeplus.web.common.R;
+import com.jeeplus.web.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,9 @@ public class ScheduleJobController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:schedule:list")
-    public R list(Integer page, Integer limit){
+    public R list(String beanName,Integer page, Integer limit){
         Map<String, Object> map = new HashMap<>();
+        map.put("beanName", beanName);
         map.put("offset", (page - 1) * limit);
         map.put("limit", limit);
 

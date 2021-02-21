@@ -234,7 +234,7 @@ function looseIndexOf (arr, val) {
 
 var config = {
   /**
-   * Option merge strategies (used in core/util/options)
+   * Option merge strategies (used in core/utils/options)
    */
   optionMergeStrategies: Object.create(null),
 

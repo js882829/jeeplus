@@ -1,10 +1,10 @@
 package com.jeeplus.web.controller;
 
-import com.jeeplus.web.entities.SysConfigEntity;
-import com.jeeplus.web.services.SysConfigService;
-import com.jeeplus.web.utils.PageUtils;
-import com.jeeplus.web.utils.R;
-import com.jeeplus.web.utils.RRException;
+import com.jeeplus.web.entities.system.SysConfigEntity;
+import com.jeeplus.web.service.system.SysConfigService;
+import com.jeeplus.web.util.PageUtils;
+import com.jeeplus.web.common.R;
+import com.jeeplus.web.common.exception.RRException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +37,9 @@ public class SysConfigController extends AbstractController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:config:list")
-    public R list(Integer page, Integer limit){
+    public R list(String key,Integer page, Integer limit){
         Map<String, Object> map = new HashMap<>();
+        map.put("key", key);
         map.put("offset", (page - 1) * limit);
         map.put("limit", limit);
 

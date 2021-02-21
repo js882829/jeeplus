@@ -38,12 +38,14 @@ $(function () {
 var vm = new Vue({
 	el:'#rrapp',
 	data:{
-		tableName: null
+        q:{
+            tableName: null
+        }
 	},
 	methods: {
 		query: function () {
 			$("#jqGrid").jqGrid('setGridParam',{ 
-                postData:{'tableName': vm.tableName},
+                postData:{'tableName': vm.q.tableName},
                 page:1 
             }).trigger("reloadGrid");
 		},

@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  
+ *  永久素材API
  *  ====================================================================
  *  上海聚攒软件开发有限公司
  *  --------------------------------------------------------------------
@@ -211,6 +211,23 @@ public class MaterialAPI extends BaseAPI {
         final Map<String, String> param = new HashMap<String, String>();
         param.put("media_id", mediaId);
         BaseResponse response = executePost(url, JSONUtils.toJson(param));
+        return ResultType.get(response.getErrcode());
+    }
+
+    /**
+     * 修改永久图文素材
+     * @param mediaId 要修改的图文消息的id
+     * @param index 要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0
+     * @param articles
+     * @return
+     */
+    public ResultType updateMaterial(String mediaId,int index,List<Article> articles){
+        String url=BASE_API_URL+"cgi-bin/material/update_news?access_token=#";
+        final Map<String,Object> param=new HashMap<String,Object>();
+        param.put("media_id",mediaId);
+        param.put("index",index);
+        param.put("articles",articles);
+        BaseResponse response=executePost(url,JSONUtils.toJson(param));
         return ResultType.get(response.getErrcode());
     }
 

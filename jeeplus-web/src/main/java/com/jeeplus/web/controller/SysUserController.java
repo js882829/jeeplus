@@ -1,11 +1,11 @@
 package com.jeeplus.web.controller;
 
-import com.jeeplus.web.entities.SysUserEntity;
-import com.jeeplus.web.services.SysUserRoleService;
-import com.jeeplus.web.services.SysUserService;
-import com.jeeplus.web.utils.PageUtils;
-import com.jeeplus.web.utils.R;
-import com.jeeplus.web.utils.ShiroUtils;
+import com.jeeplus.web.entities.system.SysUserEntity;
+import com.jeeplus.web.service.system.SysUserRoleService;
+import com.jeeplus.web.service.system.SysUserService;
+import com.jeeplus.web.util.PageUtils;
+import com.jeeplus.web.common.R;
+import com.jeeplus.web.util.ShiroUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -41,8 +41,9 @@ public class SysUserController extends AbstractController {
      */
     @RequestMapping("/list")
     @RequiresPermissions("sys:user:list")
-    public R list(Integer page, Integer limit){
+    public R list(String username,Integer page, Integer limit){
         Map<String, Object> map = new HashMap<>();
+        map.put("username", username);
         map.put("offset", (page - 1) * limit);
         map.put("limit", limit);
 
